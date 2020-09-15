@@ -1,0 +1,11 @@
+
+# 学成在线项目域名，请附加到原有的hosts文件内，请勿直接覆盖
+127.0.0.1 www.xuecheng.com
+127.0.0.1 xuecheng.com
+127.0.0.1 img.xuecheng.com
+127.0.0.1 video.xuecheng.com
+127.0.0.1 teacher.xuecheng.com
+127.0.0.1 cms.xuecheng.com
+127.0.0.1 ucenter.xuecheng.com
+127.0.0.1 eureka01 
+127.0.0.1 eureka02
