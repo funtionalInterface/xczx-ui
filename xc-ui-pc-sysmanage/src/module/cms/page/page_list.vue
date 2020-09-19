@@ -11,8 +11,7 @@
           :value="item.siteId">
         </el-option>
       </el-select>
-      页面别名：
-      <el-input v-model="params.pageAliase" style="width: 100px"></el-input>
+      <el-input v-model="params.pageAliase" placeholder="页面别名" style="width: 100px"></el-input>
       <el-button type="primary" size="small" v-on:click="query">查询</el-button>
       <router-link :to="{path:'/cms/page/add',query:{
         page:this.params.page,
