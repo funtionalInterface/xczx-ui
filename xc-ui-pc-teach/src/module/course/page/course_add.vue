@@ -34,6 +34,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="primary"  @click.native="save" >提交</el-button>
+      <el-button type="primary"  @click.native="go_back" >返回</el-button>
     </div>
   </div>
 </template>
@@ -99,6 +100,16 @@
               }
 
           })
+      },
+      go_back(){
+        this.$router.push({
+          path:'/course/list',
+          query:{
+            page:this.$route.query.page,//取出路由中的参数
+            courseName: this.$route.query.courseName,
+            companyId:this.$route.query.companyId
+          }
+        })
       }
     },
     created(){

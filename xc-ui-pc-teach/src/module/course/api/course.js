@@ -8,56 +8,77 @@ let apiUrl = sysConfig.xcApiUrlPre;
 //我的课程列表
 export const findCourseList = (page, size, params) => {
 //使用工具类将json对象转成key/value
-  let queries = querystring.stringify(params)
-  return http.requestQuickGet(apiUrl + "/course/coursebase/list/" + page + "/" + size + "?" + queries)
+    let queries = querystring.stringify(params)
+    return http.requestQuickGet(apiUrl + "/course/coursebase/list/" + page + "/" + size + "?" + queries)
 }
 //查询课程分类
 export const category_findlist = () => {
-  return http.requestQuickGet(apiUrl + '/category/list')
+    return http.requestQuickGet(apiUrl + '/category/list')
 }
 export const getCoursebaseById = (id) => {
-  return http.requestQuickGet(apiUrl + '/course/coursebase/get/' + id)
+    return http.requestQuickGet(apiUrl + '/course/coursebase/get/' + id)
 }
 /*添加课程基础信息*/
 export const addCourseBase = params => {
-  return http.requestPost(apiUrl + '/course/coursebase/add', params)
+    return http.requestPost(apiUrl + '/course/coursebase/add', params)
+}
+export const updateCoursebase = (id, base) => {
+    return http.requestPut(apiUrl + '/course/coursebase/edit/' + id, base)
+}
+export const updateCourseMarket = (id, market) => {
+    return http.requestPut(apiUrl + '/course/coursemarket/edit/' + id, market)
 }
 /*查询课程计划*/
 export const findTeachplanList = courseid => {
-  return http.requestQuickGet(apiUrl + '/course/teachplan/list/' + courseid)
+    return http.requestQuickGet(apiUrl + '/course/teachplan/list/' + courseid)
 }
 /*添加课程计划*/
 export const addTeachplan = teachplah => {
-  return http.requestPost(apiUrl + '/course/teachplan/add', teachplah)
+    return http.requestPost(apiUrl + '/course/teachplan/add', teachplah)
 }
 
 //保存课程图片地址到课程数据 库
 export const addCoursePic = (courseId, pic) => {
-  return http.requestPost(apiUrl + '/course/coursepic/add?courseId=' + courseId + "&pic=" + pic)
+    return http.requestPost(apiUrl + '/course/coursepic/add?courseId=' + courseId + "&pic=" + pic)
 }
 //查询课程图片
 export const findCoursePicList = courseId => {
-  return http.requestQuickGet(apiUrl + '/course/coursepic/list/' + courseId)
+    return http.requestQuickGet(apiUrl + '/course/coursepic/list/' + courseId)
 }
-
 //删除课程图片
 export const deleteCoursePic = courseId => {
-  return http.requestDelete(apiUrl + '/course/coursepic/delete?courseId=' + courseId)
+    return http.requestDelete(apiUrl + '/course/coursepic/delete?courseId=' + courseId)
+}
+// 获取课程营销
+export const getCourseMarketById = courseId => {
+    return http.requestQuickGet(apiUrl + '/course/coursemarket/get/' + courseId)
+}
+// 获取课程计划
+export const getCourseTeachPlan = teachplanId => {
+    return http.requestQuickGet(apiUrl + '/course/teachplan/get/' + teachplanId)
+}
+// 编辑课程计划
+export const editCourseTeachPlan = (teachplan) => {
+    return http.requestPut(apiUrl + '/course/teachplan/edit/' , teachplan)
+}
+// 删除课程计划
+export const delCourseTeachPlan = teachplanId => {
+    return http.requestDelete(apiUrl + '/course/teachplan/del/' + teachplanId)
 }
 /*预览课程*/
 export const preview = id => {
-  return http.requestPost(apiUrl + '/course/preview/' + id);
+    return http.requestPost(apiUrl + '/course/preview/' + id);
 }
 /*发布课程*/
 export const publish = id => {
-  return http.requestPost(apiUrl + '/course/publish/' + id);
+    return http.requestPost(apiUrl + '/course/publish/' + id);
 }
 //查询课程信息
 export const findCourseView = courseId => {
-  return http.requestQuickGet(apiUrl + '/course/courseview/' + courseId)
+    return http.requestQuickGet(apiUrl + '/course/courseview/' + courseId)
 }
 
 /*保存媒资信息*/
 export const savemedia = teachplanMedia => {
-  return http.requestPost(apiUrl + '/course/savemedia', teachplanMedia);
+    return http.requestPost(apiUrl + '/course/savemedia', teachplanMedia);
 }

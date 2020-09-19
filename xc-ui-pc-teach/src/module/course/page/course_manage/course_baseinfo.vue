@@ -5,15 +5,16 @@
         <el-input v-model="courseForm.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="适用人群" prop="users">
-        <el-input  v-model="courseForm.users" auto-complete="off" ></el-input>
+        <el-input v-model="courseForm.users" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="课程分类" prop="categoryActive">
-          <el-cascader
-            expand-trigger="hover"
-            :options="categoryList"
-            v-model="categoryActive"
-            :props="props">
-          </el-cascader>
+        <el-cascader
+          expand-trigger="hover"
+          :options="categoryList"
+          v-model="categoryActive"
+          :props="props"
+          @change="handleChange">
+        </el-cascader>
       </el-form-item>
       <el-form-item label="课程等级" prop="grade">
         <b v-for="grade in gradeList">
@@ -24,16 +25,15 @@
         <b v-for="studymodel_v in studymodelList">
           <el-radio v-model="courseForm.studymodel" :label="studymodel_v.sdId">{{studymodel_v.sdName}}</el-radio>&nbsp;&nbsp;
         </b>
-
       </el-form-item>
-
       <el-form-item label="课程介绍" prop="description">
         <el-input type="textarea" v-model="courseForm.description"></el-input>
       </el-form-item>
-
     </el-form>
+
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click.native="save" :loading="editLoading">提交</el-button>
+      <el-button type="primary"  @click.native="go_back" >返回</el-button>
     </div>
   </div>
 </template>
@@ -46,6 +46,7 @@
 
     data() {
       return {
+
         dotype: '',
         courseid: '',
         studymodelList: [],
@@ -72,7 +73,7 @@
           name: [
             {required: true, message: '请输入课程名称', trigger: 'blur'}
           ],
-          categoryActive: [
+          categoryActive1: [
             {required: true, message: '请选择课程分类', trigger: 'blur'}
           ],
           grade: [
@@ -86,6 +87,9 @@
       }
     },
     methods: {
+      handleChange(){
+        console.log(this.categoryActive)
+      },
       save() {
         //修改课程
         this.$refs.courseForm.validate((valid) => {
@@ -115,16 +119,27 @@
             });
           }
         });
+      },
+      go_back(){
+        this.$router.push({
+          path:'/course/list',
+          query:{
+            page:this.$route.query.page,//取出路由中的参数
+            courseName: this.$route.query.courseName,
+            companyId:this.$route.query.companyId
+          }
+        })
       }
     },
     created() {
 
     },
     mounted() {
+
       //查询数据字典字典
       systemApi.sys_getDictionary('201').then((res) => {
-//        console.log(res);
         this.studymodelList = res.dvalue;
+
       });
       systemApi.sys_getDictionary('200').then((res) => {
         this.gradeList = res.dvalue;
@@ -137,7 +152,6 @@
       //课程id
       this.courseid = this.$route.params.courseid;
       courseApi.getCoursebaseById(this.courseid).then((res) => {
-        console.log(res);
         this.courseForm = res;
         //课程分类显示，需要两级分类
         this.categoryActive.push(this.courseForm.mt);
