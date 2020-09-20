@@ -101,8 +101,8 @@
     created() {
       const tmp_page = this.$route.query.page;
       this.page = this.blank(tmp_page) ? 1 : parseInt(tmp_page);
-      this.params.name = this.$route.query.courseName;
-      this.params.companyId = this.$route.query.companyId;
+      this.params.name = this.$route.query.courseName === undefined ? '' : this.$route.query.courseName;
+      this.params.companyId = this.$route.query.companyId === undefined ? '' : this.$route.query.companyId;
     },
     mounted: function () {
       //查询我的课程
