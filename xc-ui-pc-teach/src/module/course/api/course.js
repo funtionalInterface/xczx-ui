@@ -66,8 +66,8 @@ export const delCourseTeachPlan = teachplanId => {
     return http.requestDelete(apiUrl + '/course/teachplan/del/' + teachplanId)
 }
 /*预览课程*/
-export const preview = id => {
-    return http.requestPost(apiUrl + '/course/preview/' + id);
+export const preview = courseId => {
+    return http.requestPost(apiUrl + '/course/preview/' + courseId);
 }
 /*发布课程*/
 export const publish = id => {
