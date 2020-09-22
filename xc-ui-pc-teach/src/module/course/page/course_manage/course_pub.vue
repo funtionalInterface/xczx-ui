@@ -21,17 +21,17 @@
             <span>课程发布</span>
           </div>
           <div class="text item">
-            <div v-if="course.status == '202001'">
+            <div v-if="course.status === '202001'">
               状态：制作中<br/>
               <el-button type="primary" @click.native="publish">新课程发布</el-button>
             </div>
-            <div v-else-if="course.status == '202003'">
+            <div v-else-if="course.status === '202003'">
               状态：已下线
               <br/><br/>
               <span><a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
                        target="_blank">点我查看课程详情页面 </a> </span>
             </div>
-            <div v-else-if="course.status == '202002'">
+            <div v-else-if="course.status === '202002'">
               状态：已发布<br/>
               <el-button type="primary" @click.native="publish">修改发布</el-button>
               <br/><br/>
