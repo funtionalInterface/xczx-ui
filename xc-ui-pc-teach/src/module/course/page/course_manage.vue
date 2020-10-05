@@ -45,14 +45,14 @@
     },
     methods: {},
     mounted() {
-      //课程id
+      // 课程id
       this.courseid = this.$route.params.courseid
       this.page = this.$route.query.page;
       const tmpName = this.$route.query.courseName;
       this.courseName = tmpName === undefined ? '' : tmpName;
       const tmpCompany = this.$route.query.companyId;
       this.companyId = tmpCompany === undefined ? '' : tmpCompany;
-      //跳转到课程基本信息
+      // 跳转到课程基本信息
       this.$router.push({path: '/course/manage/baseinfo/' + this.courseid + "?page=" + this.page + "&courseName=" + this.courseName + "&companyId=" + this.companyId})
     }
   }

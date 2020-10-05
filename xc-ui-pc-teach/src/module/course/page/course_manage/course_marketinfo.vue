@@ -79,7 +79,7 @@
                 if (res.success) {
                   this.$message.success('提交成功');
                   if (this.dotype === '1') {
-                    //跳转到课程图片
+                    // 跳转到课程图片
                     this.$router.push({path: '/course/add/plan/3/1/' + this.courseid})
                   }
                 } else {
@@ -92,19 +92,19 @@
       }
     },
     mounted() {
-      //操作类型
+      // 操作类型
       this.dotype = this.$route.params.dotype;
-      //课程id
+      // 课程id
       this.courseid = this.$route.params.courseid;
       this.courseMarketForm.id = this.courseid;
-      //查询字典
+      // 查询字典
       systemApi.sys_getDictionary('203').then((res) => {
         this.chargeList = res.dvalue;
       });
       systemApi.sys_getDictionary('204').then((res) => {
         this.validList = res.dvalue;
       });
-      //获取课程营销信息
+      // 获取课程营销信息
       courseApi.getCourseMarketById(this.courseid).then((res) => {
         if (res && res.id) {
           this.courseMarketForm = res;

@@ -11,7 +11,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    //proxyTable: proxyConfig.proxyList,
+    // proxyTable: proxyConfig.proxyList,
     proxyTable: {
       '/banner': {
         // target: 'http://localhost:3000/mock/11'

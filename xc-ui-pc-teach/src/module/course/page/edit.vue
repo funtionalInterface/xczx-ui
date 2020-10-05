@@ -63,11 +63,11 @@
           if (valid) {
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
               this.editLoading = true;
-              //NProgress.start();
+              // NProgress.start();
               let para = Object.assign({}, this.editForm);
               courseApi.editCourse(para).then((res) => {
                 this.editLoading = false;
-                //NProgress.done();
+                // NProgress.done();
                 this.$message({
                   message: '提交成功',
                   type: 'success'
@@ -82,17 +82,16 @@
     },
     mounted(){
       //根据id查询课程
-//    let row = {
-//      name: 'abc',
-//      status: 1,
-//      createtime: new Date(),
-//      author: 'fdfd'
-//    }
+      // let row = {
+      // name: 'abc',
+      // status: 1,
+      // createtime: new Date(),
+      // author: 'fdfd'
+      // }
       let id = this.$route.query.id;
       console.log("id=" + id)
       let para = {id: id};
       courseApi.getCourseById(para).then((res) => {
-        //console.log(res.courses[0]);
         this.editForm = Object.assign({}, res.courses[0]);
       });
 

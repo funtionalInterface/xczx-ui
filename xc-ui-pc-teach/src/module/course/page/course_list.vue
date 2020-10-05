@@ -68,7 +68,7 @@
         size: 7,
         total: 0,
         courses: [],
-        sels: [],//列表选中列
+        sels: [], // 列表选中列
         imgUrl: sysConfig.imgUrl,
         params: {
           name: '',
@@ -77,12 +77,12 @@
       }
     },
     methods: {
-      //分页方法
+      // 分页方法
       handleCurrentChange(val) {
         this.page = val;
         this.getCourse();
       },
-      //获取课程列表
+      // 获取课程列表
       getCourse() {
         courseApi.findCourseList(this.page, this.size, this.params).then((res) => {
           if (res.success) {
@@ -105,7 +105,7 @@
       this.params.companyId = this.$route.query.companyId === undefined ? '' : this.$route.query.companyId;
     },
     mounted: function () {
-      //查询我的课程
+      // 查询我的课程
       this.handleCurrentChange(this.page);
     }
   }

@@ -85,16 +85,16 @@
       }
     },
     methods: {
-      //新增课程提交
+      // 新增课程提交
       save() {
-        //处理课程分类
+        // 处理课程分类
         // 选择课程分类存储到categoryActive
         this.courseForm.mt = this.categoryActive[0]//大分类
         this.courseForm.st = this.categoryActive[1]//小分类
         courseApi.addCourseBase(this.courseForm).then(res => {
           if (res.success) {
             this.$message.success("提交成功")
-            //跳转到我的课程
+            // 跳转到我的课程
             this.$router.push({path: '/course/list'})
           } else {
             this.$message.error(res.message)
@@ -106,7 +106,7 @@
         this.$router.push({
           path: '/course/list',
           query: {
-            page: this.$route.query.page,//取出路由中的参数
+            page: this.$route.query.page, // 取出路由中的参数
             courseName: this.$route.query.courseName,
             companyId: this.$route.query.companyId
           }
@@ -122,12 +122,12 @@
         this.categoryList = res.queryResult.list;
       })
 
-      //查询数据字典
-      //查询课程等级
+      // 查询数据字典
+      // 查询课程等级
       systemApi.sys_getDictionary("200").then(res => {
         this.gradeList = res.dvalue;
       })
-      //查询学习模式
+      // 查询学习模式
       systemApi.sys_getDictionary("201").then(res => {
         this.studymodelList = res.dvalue;
       })

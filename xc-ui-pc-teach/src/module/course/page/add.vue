@@ -39,9 +39,9 @@ export default {
         page:this.$route.query.page,
         name:this.$route.query.name
       },
-      addLoading: false,//加载效果标记
-      addFormVisible: false,//新增界面是否显示
-      //新增界面数据
+      addLoading: false, // 加载效果标记
+      addFormVisible: false, // 新增界面是否显示
+      // 新增界面数据
       addForm: {
         name: '',
         status: 0,
@@ -65,9 +65,8 @@ export default {
         page: this.goback_params.page,
         name: this.goback_params.name}})
     },
-    //显示新增界面
+    // 显示新增界面
     handleAdd: function () {
-//        console.log(this.$refs);
       this.addFormVisible = true;
       this.addForm = {
           name: '',
@@ -76,18 +75,17 @@ export default {
           author: ''
       }
     },
-    //新增
+    // 新增
     addSubmit: function () {
       this.$refs.addForm.validate((valid) => {
         if (valid) {
           this.$confirm('确认提交吗？', '提示', {}).then(() => {
             this.addLoading = true;
-            //NProgress.start();
+            // NProgress.start();
             let para = Object.assign({}, this.addForm);
-            //console.log(para.createtime)
             courseApi.addCourse(para).then((res) => {
               this.addLoading = false;
-              //NProgress.done();
+              // NProgress.done();
               this.$message({
                 message: '提交成功',
                 type: 'success'

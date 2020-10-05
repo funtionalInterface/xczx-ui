@@ -109,28 +109,28 @@
       }
     },
     methods: {
-      //选择视频，打开窗口
+      // 选择视频，打开窗口
       choosevideo(data) {
-        //得到当前的课程计划
+        // 得到当前的课程计划
         this.teachplanId = data.id
-//        alert(this.teachplanId)
-        this.mediaFormVisible = true;//打开窗口
+        // alert(this.teachplanId)
+        this.mediaFormVisible = true; // 打开窗口
       },
-      //保存选择的视频
+      // 保存选择的视频
       choosemedia(mediaId, fileOriginalName, mediaUrl) {
-        //保存视频到课程计划表中
+        // 保存视频到课程计划表中
         let teachplanMedia = {}
         teachplanMedia.mediaId = mediaId;
         teachplanMedia.mediaFileOriginalName = fileOriginalName;
         teachplanMedia.mediaUrl = mediaUrl;
         teachplanMedia.courseId = this.courseid;
-        //课程计划
+        // 课程计划
         teachplanMedia.teachplanId = this.teachplanId
 
         courseApi.savemedia(teachplanMedia).then(res => {
           if (res.success) {
             this.$message.success("选择视频成功")
-            //查询课程计划
+            // 查询课程计划
             this.findTeachplan()
           } else {
             this.$message.error(res.message)
@@ -144,20 +144,20 @@
           this.edit();
         }
       },
-      //提交课程计划
+      // 提交课程计划
       addTeachplan() {
-        //校验表单
+        // 校验表单
         this.$refs.teachplanForm.validate((valid) => {
           if (valid) {
-            //调用api方法
-            //将课程id设置到teachplanActive
+            // 调用api方法
+            // 将课程id设置到teachplanActive
             this.teachplanActive.courseid = this.courseid
             courseApi.addTeachplan(this.teachplanActive).then(res => {
               if (res.success) {
                 this.$message.success("添加成功")
-                //清空表单
+                // 清空表单
                 this.resetForm()
-                //刷新树
+                // 刷新树
                 this.findTeachplan()
               } else {
                 this.$message.error(res.message)
@@ -178,9 +178,9 @@
       edit() {
         courseApi.editCourseTeachPlan(this.teachplanActive).then(res => {
           if (res.success) {
-            //成功
+            // 成功
             this.$message.success("修改成功！");
-            //刷新树
+            // 刷新树
             this.findTeachplan();
             this.teachplayFormVisible = false
           } else {
@@ -188,7 +188,7 @@
           }
         })
       },
-      //重置表单
+      // 重置表单
       resetForm() {
         this.teachplanActive = {}
       },
@@ -239,7 +239,7 @@
       },
       findTeachplan() {
         this.teachplanList = []
-        //查询课程计划
+        // 查询课程计划
         courseApi.findTeachplanList(this.courseid).then(res => {
           if (res && res.children) {
             this.teachplanList = res.children;
@@ -248,9 +248,9 @@
       }
     },
     mounted() {
-      //课程id
+      // 课程id
       this.courseid = this.$route.params.courseid;
-      //查询课程计划
+      // 查询课程计划
       this.findTeachplan()
     }
   }

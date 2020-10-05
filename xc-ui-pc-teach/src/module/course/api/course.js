@@ -4,14 +4,14 @@ import querystring from 'querystring'
 let sysConfig = require('@/../config/sysConfig')
 let apiUrl = sysConfig.xcApiUrlPre;
 
-//查询课程列表
-//我的课程列表
+// 查询课程列表
+// 我的课程列表
 export const findCourseList = (page, size, params) => {
-//使用工具类将json对象转成key/value
+// 使用工具类将json对象转成key/value
   let queries = querystring.stringify(params)
   return http.requestQuickGet(apiUrl + "/course/coursebase/list/" + page + "/" + size + "?" + queries)
 }
-//查询课程分类
+// 查询课程分类
 export const category_findlist = () => {
   return http.requestQuickGet(apiUrl + '/category/list')
 }
@@ -79,7 +79,7 @@ export const previewUrl = () => {
 export const publish = id => {
   return http.requestPost(apiUrl + '/course/publish/' + id);
 }
-//查询课程信息
+// 查询课程信息
 export const findCourseView = courseId => {
   return http.requestQuickGet(apiUrl + '/course/preview/model/' + courseId)
 }

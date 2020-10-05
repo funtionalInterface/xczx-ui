@@ -1,6 +1,6 @@
 var sysConfig = {
     xcApiUrlPre: '/api',
-    //xcApiUrlPre: '',
+    // xcApiUrlPre: '',
     xcApiUrl: 'http://api.xuecheng.com',
     imgUrl:'http://img.xuecheng.com/',
     videoUrl:'http://video.xuecheng.com',

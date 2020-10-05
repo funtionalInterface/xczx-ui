@@ -124,7 +124,7 @@
         this.$router.push({
           path:'/course/list',
           query:{
-            page:this.$route.query.page,//取出路由中的参数
+            page:this.$route.query.page, // 取出路由中的参数
             courseName: this.$route.query.courseName,
             companyId:this.$route.query.companyId
           }
@@ -136,7 +136,7 @@
     },
     mounted() {
 
-      //查询数据字典字典
+      // 查询数据字典字典
       systemApi.sys_getDictionary('201').then((res) => {
         this.studymodelList = res.dvalue;
 
@@ -144,16 +144,16 @@
       systemApi.sys_getDictionary('200').then((res) => {
         this.gradeList = res.dvalue;
       });
-      //取课程分类
+      // 取课程分类
       courseApi.category_findlist({}).then((res) => {
         this.categoryList = res.queryResult.list;
       });
-      //查询课程信息
-      //课程id
+      // 查询课程信息
+      // 课程id
       this.courseid = this.$route.params.courseid;
       courseApi.getCoursebaseById(this.courseid).then((res) => {
         this.courseForm = res;
-        //课程分类显示，需要两级分类
+        // 课程分类显示，需要两级分类
         this.categoryActive.push(this.courseForm.mt);  // 1-2
         this.categoryActive.push(this.courseForm.st);  // 1-2-2
       });

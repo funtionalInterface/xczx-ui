@@ -21,18 +21,18 @@
             <span>课程发布</span>
           </div>
           <div class="text item">
-            <div v-if="course.status === '202001'" >
+            <div v-if="course.status === '202001'">
               状态：制作中
               <el-button type="primary" @click.native="publish">新课程发布</el-button>
             </div>
-            <div v-else-if="course.status === '202003'" >
+            <div v-else-if="course.status === '202003'">
               状态：已下线
               <a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
                  target="_blank">
                 <el-button type="success">点我查看课程详情页面</el-button>
               </a>
             </div>
-            <div v-else-if="course.status === '202002'" >
+            <div v-else-if="course.status === '202002'">
               状态：已发布<br/><br/>
               <el-button type="primary" @click.native="publish">修改发布</el-button>
               <a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
@@ -63,14 +63,14 @@
       }
     },
     methods: {
-      //预览
+      // 预览
       preview() {
-        //调用课程管理服务的预览接口，得到课程预览url
+        // 调用课程管理服务的预览接口，得到课程预览url
         courseApi.preview(this.courseid).then((res) => {
           if (res.success) {
             this.$message.success('预览页面生成成功，请点击下方预览链接');
             if (res.previewUrl) {
-              //预览url
+              // 预览url
               this.previewurl = res.previewUrl
             }
           } else {
@@ -79,7 +79,7 @@
         });
       },
       publish() {
-        //课程发布
+        // 课程发布
         courseApi.publish(this.courseid).then(res => {
           if (res.success) {
             this.$message.success("发布成功，请点击下边的链接查询课程详情页面")
@@ -101,19 +101,17 @@
       getCourseView() {
         courseApi.findCourseView(this.courseid).then(res => {
           if (res && res.courseBase) {
-            //获取课程状态
+            // 获取课程状态
             this.course.status = res.courseBase.status;
           }
-
         })
       }
-
     },
     mounted() {
-      //课程id
+      // 课程id
       this.courseid = this.$route.params.courseid;
       // this.getCoursePreUrl();
-      //查询课程信息
+      // 查询课程信息
       this.getCourseView();
     }
   }

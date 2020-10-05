@@ -24,21 +24,21 @@
   export default {
     data() {
       return {
-        picmax: 1,//最大上传文件的数量
+        picmax: 1, // 最大上传文件的数量
         courseid: '',
         dialogImageUrl: '',
         dialogVisible: false,
         fileList: [],
-        uploadval: {filetag: "course", businesskey: "testbusinesskey"},//上传提交的额外的数据 ，将uploadval转成key/value提交给服务器
+        uploadval: {filetag: "course", businesskey: "testbusinesskey"}, // 上传提交的额外的数据 ，将uploadval转成key/value提交给服务器
         imgUrl: sysConfig.imgUrl
       }
     },
     methods: {
-      //超出文件上传个数提示信息
+      // 超出文件上传个数提示信息
       rejectupload() {
         this.$message.error("最多上传" + this.picmax + "个图片");
       },
-      //在上传前设置上传请求的数据
+      // 在上传前设置上传请求的数据
       setuploaddata() {
 
       },
