@@ -54,7 +54,7 @@
         editLoading: false,
         props: {
           value: 'id',
-          label: 'label',
+          label: 'name',
           children: 'children'
         },
         categoryList: [],
@@ -154,8 +154,8 @@
       courseApi.getCoursebaseById(this.courseid).then((res) => {
         this.courseForm = res;
         //课程分类显示，需要两级分类
-        this.categoryActive.push(this.courseForm.mt);
-        this.categoryActive.push(this.courseForm.st);
+        this.categoryActive.push(this.courseForm.mt);  // 1-2
+        this.categoryActive.push(this.courseForm.st);  // 1-2-2
       });
     }
   }

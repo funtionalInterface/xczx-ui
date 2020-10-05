@@ -39,7 +39,7 @@
       </el-table-column>
       <el-table-column prop="pagePhysicalPath" label="物理路径" width="500">
       </el-table-column>
-      <el-table-column fixed="right" align="center" label="操作" width="250">
+      <el-table-column fixed="right" align="center" label="操作" width="300">
         <template slot-scope="page">
           <el-button
             size="small" type="warning"
@@ -49,7 +49,8 @@
             size="small" type="danger"
             @click="del(page.row.pageId)">删除
           </el-button>
-          <el-button @click="preview(page.row.pageId)" type="success" size="small">页面预览</el-button>
+          <el-button @click="preview(page.row.pageId)" type="primary" size="small">预览</el-button>
+          <el-button @click="postPage(page.row.pageId)" type="success" size="small">发布</el-button>
         </template>
 
       </el-table-column>
@@ -80,13 +81,23 @@
           siteId: '',
           pageAliase: '',
           page: 1,
-          size: 10
+          size: 5
         }
       }
     },
     methods: {
+      getSiteList() {
+        //初始化站点列表
+        //调用服务端接口
+        cmsApi.site_list().then(res => {
+          if (res.success) {
+            this.siteList = res.queryResult.list;
+          }
+        })
+      },
       //页面查询
       query: function () {
+        this.getSiteList();
         // alert('查询')
         //调用服务端的接口
         cmsApi.page_list(this.params.page, this.params.size, this.params).then((res) => {
@@ -113,6 +124,7 @@
           }
         })
       },
+
       del: function (pageId) {
         this.$confirm('您确认删除吗?', '提示', {}).then(() => {
 
@@ -130,10 +142,25 @@
         })
 
       },
+
+      // 页面预览
       preview: function (pageId) {
-        //打开浏览器窗口
+        // 打开浏览器窗口
         window.open("http://www.xuecheng.com/cms/preview/" + pageId);
-      }
+      },
+      postPage(id) {
+        this.$confirm('确认发布该页面吗?', '提示', {}).then(() => {
+          cmsApi.page_postPage(id).then((res) => {
+            if (res.success) {
+              console.log('发布页面id=' + id);
+              this.$message.success('发布成功，请稍后查看结果');
+            } else {
+              this.$message.error('发布失败');
+            }
+          });
+        }).catch(() => {
+        });
+      },
     },
     created() {
       //取出路由中的参数，赋值给数据对象
@@ -142,16 +169,11 @@
       this.params.pageAliase = this.$route.query.pageAliase || ''
 
     },
+
     mounted() {
       //当DOM元素渲染完成后调用query
       this.query()
-      //初始化站点列表
-      //调用服务端接口
-      cmsApi.site_list().then(res => {
-        if (res.success) {
-          this.siteList = res.queryResult.list;
-        }
-      })
+      this.getSiteList()
     }
   }
 </script>

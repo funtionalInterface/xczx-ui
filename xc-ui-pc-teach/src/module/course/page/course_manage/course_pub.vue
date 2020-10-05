@@ -21,22 +21,24 @@
             <span>课程发布</span>
           </div>
           <div class="text item">
-            <div v-if="course.status === '202001'">
-              状态：制作中<br/>
+            <div v-if="course.status === '202001'" >
+              状态：制作中
               <el-button type="primary" @click.native="publish">新课程发布</el-button>
             </div>
-            <div v-else-if="course.status === '202003'">
+            <div v-else-if="course.status === '202003'" >
               状态：已下线
-              <br/><br/>
-              <span><a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
-                       target="_blank">点我查看课程详情页面 </a> </span>
+              <a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
+                 target="_blank">
+                <el-button type="success">点我查看课程详情页面</el-button>
+              </a>
             </div>
-            <div v-else-if="course.status === '202002'">
-              状态：已发布<br/>
+            <div v-else-if="course.status === '202002'" >
+              状态：已发布<br/><br/>
               <el-button type="primary" @click.native="publish">修改发布</el-button>
-              <br/><br/>
-              <span><a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
-                       target="_blank">点我查看课程详情页面 </a> </span>
+              <a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
+                 target="_blank"><br/><br/>
+                <el-button type="success">点我查看课程详情页面</el-button>
+              </a>
             </div>
           </div>
         </el-card>
@@ -81,11 +83,19 @@
         courseApi.publish(this.courseid).then(res => {
           if (res.success) {
             this.$message.success("发布成功，请点击下边的链接查询课程详情页面")
-
+            this.getCourseView()
           } else {
             this.$message.error(res.message)
           }
 
+        })
+      },
+      getCoursePreUrl() {
+        courseApi.previewUrl().then(res => {
+          if (res.success) {
+            this.previewurl = res.previewUrl;
+            this.previewurl += this.courseid;
+          }
         })
       },
       getCourseView() {
@@ -102,10 +112,10 @@
     mounted() {
       //课程id
       this.courseid = this.$route.params.courseid;
+      // this.getCoursePreUrl();
       //查询课程信息
       this.getCourseView();
     }
-
   }
 </script>
 <style>

@@ -155,6 +155,8 @@
             courseApi.addTeachplan(this.teachplanActive).then(res => {
               if (res.success) {
                 this.$message.success("添加成功")
+                //清空表单
+                this.resetForm()
                 //刷新树
                 this.findTeachplan()
               } else {

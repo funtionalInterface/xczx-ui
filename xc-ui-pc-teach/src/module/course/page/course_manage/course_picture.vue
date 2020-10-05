@@ -42,28 +42,28 @@
       setuploaddata() {
 
       },
-      //删除图片
+      // 删除图片
       handleRemove(file, fileList) {
+        // 调用服务端去删除课程图片信息，如果返回false，前端停止删除
+        // 异步调用
         return new Promise((resolve, reject) => {
           courseApi.deleteCoursePic(this.courseid).then(res => {
             if (res.success) {
-              //成功
+              // 成功
               this.$message.success("删除成功");
               resolve();
             } else {
               this.$message.error("删除失败");
-              //失败
+              // 失败
               reject();
             }
-
           })
         })
-
       },
-      //上传成功的钩子方法
+      // 上传成功的钩子方法
       handleSuccess(response, file, fileList) {
-        //调用课程管理的保存图片接口，将图片信息保存到课程管理数据库course_pic中
-        //从response得到新的图片文件的地址
+        // 调用课程管理的保存图片接口，将图片信息保存到课程管理数据库course_pic中
+        // 从response得到新的图片文件的地址
         if (response.success) {
           let fileId = response.fileSystem.fileId;
           courseApi.addCoursePic(this.courseid, fileId).then(res => {
@@ -77,55 +77,40 @@
         }
 
       },
-      //上传失败执行的钩子方法
+      // 上传失败执行的钩子方法
       handleError(err, file, fileList) {
         this.$message.error('上传失败');
-        //清空文件队列
+        // 清空文件队列
         this.fileList = []
       },
-      //promise 有三种状态:
-      //进行中pending
-      //执行成功 resolve
-      //执行失败 reject
+      // promise 有三种状态:
+      // 进行中pending
+      // 执行成功 resolve
+      // 执行失败 reject
       testPromise(i) {
         return new Promise((resolve, reject) => {
           if (i < 2) {
-            //成功了
+            // 成功了
             resolve('成功了');
           } else {
-            //失败了
+            // 失败了
             reject('失败了');
           }
         })
       }
     },
     mounted() {
-      //课程id
+      // 课程id
       this.courseid = this.$route.params.courseid;
-      //查询课程
+      // 查询课程
       courseApi.findCoursePicList(this.courseid).then(res => {
         if (res && res.pic) {
           let imgUrl = this.imgUrl + res.pic;
-          //将图片地址设置到
+          // 将图片地址设置到
           this.fileList.push({name: 'pic', url: imgUrl, fileId: res.pic})
         }
-
       }).catch(res => {
-
       })
-
-      /*      this.testPromise(3).then(res=>{
-              alert(res)
-            }).catch(res=>{
-              alert(res)
-            })*/
-      //测试调用promise方法，then中写的成功后的回调方法，
-//      this.testPromise(3).then(res=>{
-//          alert(res)
-//      }).catch(res=>{//catch就是执行失败的回调方法
-//          alert("失败了。。。。。")
-//          alert(res)
-//      })
     }
   }
 </script>

@@ -10,11 +10,11 @@ export const page_list = (page,size,params) =>{
   //请求服务端的页面查询接口
   return http.requestQuickGet(apiUrl+'/cms/page/list/'+page+'/'+size+"?"+queryString);
 }
-//新增页面
+//获取所有站点信息
 export const site_list = () =>{
   return http.requestGet(apiUrl+'/cms/page/site/list')
 }
-//新增页面
+//获取所有模板信息
 export const template_list = () =>{
   return http.requestGet(apiUrl+'/cms/page/template/list')
 }
@@ -34,4 +34,8 @@ export const page_edit = (id,params) =>{
 //删除页面
 export const page_del= (id) =>{
   return http.requestDelete(apiUrl+'/cms/page/del/'+id)
+}
+/*发布页面*/
+export const page_postPage= id => {
+  return http.requestPost(apiUrl+'/cms/page/postPage/'+id)
 }
