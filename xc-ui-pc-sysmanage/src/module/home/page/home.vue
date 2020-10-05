@@ -99,7 +99,7 @@
       },
       handleselect: function (a, b) {
       },
-      //折叠导航栏
+      // 折叠导航栏
       collapse: function () {
         this.collapsed = !this.collapsed;
       },

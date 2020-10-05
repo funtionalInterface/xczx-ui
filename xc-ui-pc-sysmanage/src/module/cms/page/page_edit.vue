@@ -59,12 +59,12 @@
   export default {
     data() {
       return {
-        //页面id
+        // 页面id
         pageId: '',
-        //模版列表
+        // 模版列表
         templateList: [],
-        addLoading: false,//加载效果标记
-        //新增界面数据
+        addLoading: false, // 加载效果标记
+        // 新增界面数据
         pageForm: {
           siteId: '',
           templateId: '',
@@ -108,11 +108,11 @@
         })
       },
       editSubmit() {
-        this.$refs.pageForm.validate((valid) => {//表单校验
-          if (valid) {//表单校验通过
+        this.$refs.pageForm.validate((valid) => { // 表单校验
+          if (valid) { // 表单校验通过
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
               this.addLoading = true;
-              //修改提交请求服务端的接口
+              // 修改提交请求服务端的接口
               cmsApi.page_edit(this.pageId, this.pageForm).then((res) => {
                 console.log(res);
                 if (res.success) {
@@ -121,7 +121,7 @@
                     message: '提交成功',
                     type: 'success'
                   });
-                  //返回
+                  // 返回
                   this.go_back();
 
                 } else {
@@ -137,7 +137,7 @@
     },
     created: function () {
       this.pageId = this.$route.params.pageId;
-      //根据主键查询页面信息
+      // 根据主键查询页面信息
       cmsApi.page_get(this.pageId).then((res) => {
         console.log(res);
         if (res) {
@@ -146,14 +146,14 @@
       });
     },
     mounted: function () {
-      //初始化站点列表
-      //调用服务端接口
+      // 初始化站点列表
+      // 调用服务端接口
       cmsApi.site_list().then(res => {
         if (res.success) {
           this.siteList = res.queryResult.list;
         }
       })
-      //模板列表
+      // 模板列表
       cmsApi.template_list().then(res => {
         if (res.success) {
           this.templateList = res.queryResult.list;

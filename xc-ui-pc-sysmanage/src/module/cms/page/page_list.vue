@@ -73,7 +73,7 @@
   export default {
     data() {
       return {
-        siteList: [],//站点列表
+        siteList: [], // 站点列表
         list: [],
         total: 0,
         params: {
@@ -87,34 +87,34 @@
     },
     methods: {
       getSiteList() {
-        //初始化站点列表
-        //调用服务端接口
+        // 初始化站点列表
+        // 调用服务端接口
         cmsApi.site_list().then(res => {
           if (res.success) {
             this.siteList = res.queryResult.list;
           }
         })
       },
-      //页面查询
+      // 页面查询
       query: function () {
         this.getSiteList();
         // alert('查询')
-        //调用服务端的接口
+        // 调用服务端的接口
         cmsApi.page_list(this.params.page, this.params.size, this.params).then((res) => {
-          //将res结果数据赋值给数据模型对象
+          // 将res结果数据赋值给数据模型对象
           this.list = res.queryResult.list;
           this.total = res.queryResult.total;
         })
 
       },
-      changePage: function (page) {//形参就是当前页码
-        //调用query方法
+      changePage: function (page) { // 形参就是当前页码
+        // 调用query方法
         // alert(page)
         this.params.page = page;
         this.query()
       },
       edit: function (pageId) {
-        //打开修改页面
+        // 打开修改页面
         this.$router.push({
           path: '/cms/page/edit/' + pageId,
           query: {
@@ -128,12 +128,12 @@
       del: function (pageId) {
         this.$confirm('您确认删除吗?', '提示', {}).then(() => {
 
-          //调用服务端接口
+          // 调用服务端接口
           cmsApi.page_del(pageId).then(res => {
 
             if (res.success) {
               this.$message.success("删除成功")
-              //刷新页面
+              // 刷新页面
               this.query()
             } else {
               this.$message.error("删除失败")
@@ -163,7 +163,7 @@
       },
     },
     created() {
-      //取出路由中的参数，赋值给数据对象
+      // 取出路由中的参数，赋值给数据对象
       this.params.page = Number.parseInt(this.$route.query.page || 1)
       this.params.siteId = this.$route.query.siteId || ''
       this.params.pageAliase = this.$route.query.pageAliase || ''
@@ -171,7 +171,7 @@
     },
 
     mounted() {
-      //当DOM元素渲染完成后调用query
+      // 当DOM元素渲染完成后调用query
       this.query()
       this.getSiteList()
     }

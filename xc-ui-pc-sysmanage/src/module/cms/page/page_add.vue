@@ -94,19 +94,15 @@
     methods:{
       addSubmit:function(){
         this.$refs['pageForm'].validate((valid) => {
-          if (valid) {//表单校验成功
-            //确认提示
+          if (valid) { // 表单校验成功
+            // 确认提示
             this.$confirm('您确认提交吗?', '提示', { }).then(() => {
-              //调用page_add方法请求服务端的新增页面接口
+              // 调用page_add方法请求服务端的新增页面接口
               cmsApi.page_add(this.pageForm).then(res=>{
-                //解析服务端响应内容
+                // 解析服务端响应内容
                 if(res.success){
-                  /*this.$message({
-                    message: '提交成功',
-                    type: 'success'
-                  })*/
                   this.$message.success("提交成功")
-                  //将表单清空
+                  // 将表单清空
                   this.$refs['pageForm'].resetFields();
                 }else if(res.message){
                   this.$message.error(res.message)
@@ -119,12 +115,12 @@
           }
         });
       },
-      //返回
+      // 返回
       go_back:function () {
         this.$router.push({
           path:'/cms/page/list',
           query:{
-            page:this.$route.query.page,//取出路由中的参数
+            page:this.$route.query.page, // 取出路由中的参数
             siteId:this.$route.query.siteId,
             pageAliase:this.$route.query.pageAliase
           }
@@ -132,15 +128,15 @@
       }
     },
     mounted(){
-      //初始化站点列表
-      //初始化站点列表
-      //调用服务端接口
+      // 初始化站点列表
+      // 初始化站点列表
+      // 调用服务端接口
       cmsApi.site_list().then(res => {
         if (res.success) {
           this.siteList = res.queryResult.list;
         }
       })
-      //模板列表
+      // 模板列表
       cmsApi.template_list().then(res => {
         if (res.success) {
           this.templateList = res.queryResult.list;
