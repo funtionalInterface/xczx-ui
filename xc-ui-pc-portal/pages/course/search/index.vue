@@ -165,7 +165,7 @@
   </div>
 </template>
 <script>
-  //配置文件
+  // 配置文件
   let config = require('~/config/sysConfig')
   import querystring from 'querystring'
   import * as courseApi from '~/api/course'
@@ -193,16 +193,16 @@
            page = 1;
        }
 //       console.log("page="+page)
-      //搜索课程
+      // 搜索课程
       let course_data = await courseApi.search_course(page,12,route.query)
       console.log(course_data)
-      //查询分类
+      // 查询分类
       let category_data = await courseApi.sysres_category()
 //      console.log(category_data)
 //      console.log(course_data.hits.hits)
 
       if (course_data && course_data.hits &&  course_data.hits.hits && category_data) {
-        //全部分类
+        // 全部分类
         let category = category_data.category
         let first_category = category[0].children
         let keywords = ''
@@ -224,17 +224,15 @@
         if( route.query.keyword){
           keyword = route.query.keyword
         }
-        //遍历一级分类
+        // 遍历一级分类
         for(var i in first_category){
           keywords+=first_category[i].name+' '
           if(mt!=''&& mt == first_category[i].id){
-            //取出二级分类
+            // 取出二级分类
             second_category = first_category[i].children;
-            // console.log(second_category)
             break;
           }
         }
-        //console.log(category[0].children)
         return {
           courselist: course_data.hits.hits,
           first_category: first_category,
@@ -270,29 +268,26 @@
     },
     data() {
       return {
-        total:0,//总记录数
-        page:1,//页码
-        page_size:12,//每页显示个数
-        keywords:''//head中的关键字
+        total:0, // 总记录数
+        page:1, // 页码
+        page_size:12, // 每页显示个数
+        keywords:'' // head中的关键字
       };
     },
-    watch:{//路由发生变化立即搜索search表示search方法
+    watch:{ // 路由发生变化立即搜索search表示search方法
       '$route':'search'
     },
     methods: {
-      //分页触发
+      // 分页触发
       handleCurrentChange(page) {
         this.page = page
         let query = Object.assign({}, this.$route.query);
         query.page = page
         let querys = querystring.stringify(query)
-//        console.log(querys)
         this.$router.push(`/course/search?`+querys)
       },
-      search(){//搜索方法
-//        console.log("search....")
-//        console.log(this.$route.query)
-        courseApi.sysres_category().then((category_data)=>{// 搜索分类
+      search(){ // 搜索方法
+        courseApi.sysres_category().then((category_data)=>{ // 搜索分类
           let category = category_data.category
           let first_category = category[0].children
           let second_category=[]
@@ -314,11 +309,10 @@
             keyword =  this.$route.query.keyword
           }
           if(mt!=''){
-            //取出二级分类
+            // 取出二级分类
             for(var i in first_category){
               if(mt == first_category[i].id){
                 second_category = first_category[i].children;
-                // console.log(second_category)
                 break;
               }
             }
@@ -332,7 +326,7 @@
 
         })
         courseApi.search_course(this.page,this.page_size,this.$route.query).then((course_data) => {
-          //console.log(course_data.hits.hits)
+          // console.log(course_data.hits.hits)
           this.courselist=course_data.hits.hits
           this.total = course_data.hits.total
 
