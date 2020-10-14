@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--SWF在初始化的时候指定，在后面将展示-->
     <div id="uploader">
       <!-- 创建用于拖拽的区域 -->
      <!-- <div id="dndArea"></div>-->
@@ -51,7 +52,7 @@ export default {
               .then(function(val) {
                 fileMd5 = val;
 
-                alert(fileMd5 )
+                alert(fileMd5)
                 //向服务端请求注册 上传文件
 
                 // 状态改为已完成
@@ -177,11 +178,9 @@ export default {
         this.progress = percentage;
       });
       uploader.on("uploadError", function(file,reason) {
-        console.log(reason)
         alert("fail");
       });
       uploader.on("uploadSuccess", function(file,response ) {
-        console.log(response)
         alert("success");
       });
 

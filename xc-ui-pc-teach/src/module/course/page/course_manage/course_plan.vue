@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-button type="primary" @click="teachplayFormVisible = true ,teachPlanName='添加课程计划'">添加课程计划</el-button>
+    <el-button type="primary" size="small" @click="teachplayFormVisible = true ,teachPlanName='添加课程计划'">添加课程计划
+    </el-button>
     <el-tree
       :data="teachplanList"
       :props="defaultProps"
@@ -56,8 +57,10 @@
 
       </el-form>
     </el-dialog>
-    <el-dialog title="选择媒资文件" :visible.sync="mediaFormVisible">
-      <media-list v-bind:ischoose="true" @choosemedia="choosemedia"></media-list>
+    <el-dialog title="选择媒资文件" width="80%" :visible.sync="mediaFormVisible">
+      <div style="height: 400px;overflow: auto">
+        <media-list v-bind:ischoose="true" @choosemedia="choosemedia"></media-list>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -113,7 +116,6 @@
       choosevideo(data) {
         // 得到当前的课程计划
         this.teachplanId = data.id
-        // alert(this.teachplanId)
         this.mediaFormVisible = true; // 打开窗口
       },
       // 保存选择的视频
@@ -136,6 +138,8 @@
             this.$message.error(res.message)
           }
         })
+        this.mediaFormVisible = false;
+
       },
       switchFun() {
         if (this.teachPlanName === "添加课程计划") {
@@ -227,7 +231,7 @@
             </span>
             <span>
               <el-button style="font-size: 12px;" type="text"
-                         on-click={() => this.choosevideo(data)}>{data.mediaFileOriginalName}&nbsp;&nbsp;&nbsp;&nbsp; 选择视频</el-button>
+                         on-click={() => this.choosevideo(data)}>{data.media_fileoriginalname}&nbsp;&nbsp;&nbsp;&nbsp; 选择视频</el-button>
               <el-button style="font-size: 12px;" type="text" on-click={() => {
                 this.editTeachplan(data);
                 this.teachplayFormVisible = true;
@@ -243,6 +247,7 @@
         courseApi.findTeachplanList(this.courseid).then(res => {
           if (res && res.children) {
             this.teachplanList = res.children;
+            console.log(this.teachplanList)
           }
         })
       }

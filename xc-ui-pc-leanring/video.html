@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>视频播放</title>
+  <link href="/static/plugins/videojs/video-js.css" rel="stylesheet">
+</head>
+<body>
+<video id=example-video width=800 height=600 class="video-js vjs-default-skin vjs-big-play-
+                                                            centered" controls poster="http://127.0.0.1:90/video/add.jpg">
+  <source
+    src="http://video.xuecheng.com/video/6/9/69a81d4b4b3404887ade5b252a5b8ca6/hls/69a81d4b4b3404887ade5b252a5b8ca6.m3u8"
+    type="application/x-mpegURL">
+</video>
+<input type="button" onClick="switchvideo()" value="switch"/>
+<script src="/static/plugins/videojs/video.js"></script>
+<script src="/static/plugins/videojs/videojs-contrib-hls.js"></script>
+<script>
+  var player = videojs('example-video');
+  //player.play();
+  //切换视频
+  function switchvideo(){
+    player.src({
+      src: 'http://video.xuecheng.com/video/6/9/69a81d4b4b3404887ade5b252a5b8ca6/hls/69a81d4b4b3404887ade5b252a5b8ca6.m3u8',
+      type: 'application/x-mpegURL',
+      withCredentials: true
+    });
+    player.play();
+  }
+</script>
+</body>
+</html>

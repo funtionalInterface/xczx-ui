@@ -3,7 +3,7 @@
     <!--编写页面静态部分，即view部分-->
     <!--查询表单-->
     <el-form :model="params" style="margin-top: 10px">
-      <el-select v-model="params.siteId" clearable placeholder="请选择站点">
+      <el-select v-model="params.siteId" clearable size="small" style="width: 100px" placeholder="请选择站点">
         <el-option
           v-for="item in siteList"
           :key="item.siteId"
@@ -11,7 +11,7 @@
           :value="item.siteId">
         </el-option>
       </el-select>
-      <el-input v-model="params.pageAliase" placeholder="页面别名" style="width: 100px"></el-input>
+      <el-input v-model="params.pageAliase" size="small" placeholder="页面别名" style="width: 100px"></el-input>
       <el-button type="primary" size="small" v-on:click="query">查询</el-button>
       <router-link :to="{path:'/cms/page/add',query:{
         page:this.params.page,
