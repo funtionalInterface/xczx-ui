@@ -19,3 +19,7 @@ export const media_process = (mediaId) => {
 export const delete_media = (mediaId) => {
   return http.requestDelete(apiUrl + '/media/file/delete/' + mediaId)
 }
+/*删除媒资信息*/
+export const get_player_url = (mediaId) => {
+  return http.requestQuickGet(apiUrl + '/media/file/get/' + mediaId)
+}

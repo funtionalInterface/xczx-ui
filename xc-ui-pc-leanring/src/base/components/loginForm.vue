@@ -74,25 +74,19 @@ export default {
 
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
-
               this.editLoading = true;
-
               let para = Object.assign({}, this.loginForm);
-
               loginApi.login(para).then((res) => {
                 this.editLoading = false;
                 if(res.success){
-                  this.$message('登陆成功');
-                  //刷新 当前页面
-                 // alert(this.returnUrl)
-                  console.log(this.returnUrl)
-                  if(this.returnUrl!='undefined' && this.returnUrl!=''
+                  alert('登陆成功,正在跳转首页......');
+                  if(this.returnUrl!=='undefined' && this.returnUrl!==''
                                                    && !this.returnUrl.includes("/userlogout")
                                                    && !this.returnUrl.includes("/userlogin")){
 
                     window.location.href = this.returnUrl;
                   }else{
-                    //跳转到首页
+                    // 跳转到首页
                     window.location.href = 'http://www.xuecheng.com/'
                   }
 

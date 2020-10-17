@@ -20,4 +20,5 @@ export default [
     hidden: false,
     iconCls: 'el-icon-document'
   }
+
 ]

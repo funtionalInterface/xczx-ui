@@ -138,11 +138,11 @@
                   fileExt: file.ext
                 },
                 success: function (response) {
-                  //在这里解析合并成功结果
+                  // 在这里解析合并成功结果
                   if (response && response.success) {
-                    alert("上传成功")
+                    // alert("上传成功")
                   } else {
-                    alert("上传失败")
+                    // alert("上传失败")
                   }
                 }
               }
@@ -174,7 +174,7 @@
       );
       //选择文件后触发
       this.uploader.on("beforeFileQueued", function (file) {
-        this.uploader.removeFile(file)
+        // this.uploader.removeFile(file)
         //重置uploader
         this.uploader.reset()
         this.percentage = 0;
@@ -193,7 +193,7 @@
       });
       //每个分块上传请求后触发
       this.uploader.on('uploadAccept', function (file, response) {
-        if (!(response && response.success)) {//分块上传失败，返回false
+        if (!(response && response.success)) { // 分块上传失败，返回false
           return false;
         }
       });

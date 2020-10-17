@@ -1,30 +1,6 @@
 <template>
   <div class="personal-cont">
-    <!--<div class="top">
-      <div class="tit"><span>最近学习课程</span></div>
 
-      <div class="top-cont">
-        <div class="col-lg-8">
-          <div class="imgIco">&lt;!&ndash;<img src="/static/images/asset-timg.png" width="60" height="28" alt="">&ndash;&gt;</div>
-          <div class="title"><span class="lab">继续学习</span> 程序语言设计 <span class="status">学习中</span></div>
-          <div class="about"><span class="lab">正在学习</span> 使用对象 <span class="data">有效日期: 2017.06.05 - 2018.06.05</span></div>
-          <div class="rate">
-            <li class="active"></li>
-            <li></li>
-            <li></li>
-            <li></li><span>1/4 已完成部分</span> <span>进度25%</span></div>
-        </div>
-        <div class="division"></div>
-        <div class="col-lg-4 text-right">
-          <a href="#" class="goLear"> 继续学习</a>
-          <a href="#" class="evalu"> 课程评价</a>
-          <div class="aft" style="top:0px;right:0px;">● ● ●
-            <ul></ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>-->
     <div class="my-course">
       <div class="title">
         <div class="lab-title">全部课表</div>
@@ -53,26 +29,6 @@
               <a href="#" class="classcom">课程评价</a></div>
           </div>
         </div>
-
-        <!--<div class="col-lg-6">
-          <div class="item">
-            <div class="imgIco">&lt;!&ndash;<img src="/static/images/asset-timg.png" width="60" height="28" alt="">&ndash;&gt;</div>
-            <div class="title"><span class="lab">继续学习</span> 程序语言设计 <span class="status">学习中</span>
-              <div class="aft">● ● ●
-                <ul></ul>
-              </div>
-            </div>
-            <div class="about"><span class="lab">正在学习</span> 使用对象 </div>
-            <div class="time">有效日期: 2017.06.05 - 2018.06.05</div>
-            <div class="rate">
-              <li class="active"></li>
-              <li></li>
-              <li></li>
-              <li></li><span>1/4 已完成部分 <em>进度 25%</em></span></div>
-            <div class="parting"></div>
-            <div class="butItem text-center"><a href="#" class="golearing">继续学习</a> <a href="#" class="classcom">课程评价</a></div>
-          </div>
-        </div>-->
 
         <div class="clearfix"></div>
 

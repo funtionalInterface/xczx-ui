@@ -11,15 +11,12 @@
             </div>
             <div class="video text-center" style="padding-right: 55px;">
               <div class="video-mine">
-                <!--<div class="cls-text"><a class="media" href=".//plugins/js-pdf/NodeJSDeveloperGuid.pdf"></a></div>-->
                 <div class="cls-video">
                   <div id="vdplay">
-
                     <video-player class="vjs-custom-skin" ref="videoPlayer" :options="playerOptions">
                     </video-player>
                   </div>
                   <div class="vdControl">
-                    <!--<div class="play" onclick="vdPlay()">播放</div>-->
                   </div>
                 </div>
               </div>
@@ -596,7 +593,6 @@
             src: ''
           }]
         },
-        urltmp: [{url: this.url}]
 
       }
     },
@@ -619,16 +615,12 @@
       },
       // 开始学习
       study(chapter) {
-        //播放测试
-        // this.playvideo("http://video.xuecheng.com/video/6/9/69a81d4b4b3404887ade5b252a5b8ca6/hls/69a81d4b4b3404887ade5b252a5b8ca6.m3u8")
-        // return ;
+
         // 获取播放地址
         courseApi.get_media(this.courseId, chapter).then((res) => {
           if (res.success) {
             let fileUrl = sysConfig.videoUrl + res.fileUrl
             // 播放视频
-            console.log("fileUrl",fileUrl)
-            console.log("res",res)
             this.playvideo(fileUrl)
           } else if (res.message) {
             this.$message.error(res.message)
@@ -801,7 +793,6 @@
         $(window).resize(function () {
           $('.course-cont-top-video,.video').css('height', vidHit);
           $('.video').css('height', vidHit - 50);
-//      $('#video-player').height(vidHit - 70);
           $('.nodte-cont').css('height', vidHit - $('.note-box .note').height() - 65);
         });
         $(window).resize();
@@ -1082,11 +1073,9 @@
 
 <style>
   @import './../../../../static/plugins/normalize-css/normalize.css';
-  /*@import './../../../../static/plugins/bootstrap/dist/css/bootstrap.css';*/
   @import './../../../../static/css/page-learing-personal.css';
   @import './../../../../static/css/page-learing-course-videoes.css';
   @import './../../../../static/plugins/rainbow.css';
-  /*@import './../../../../static/plugins/videojs/video-js.css';*/
   .playbackView {
     position: relative;
   }
@@ -1108,9 +1097,7 @@
     position: relative;
     display: unset;
     padding: 10px 15px;
-    /*    color: #ebeef5;*/
   }
 
-  /*  .nav > li > a:hover { background-color:#00a4ff; }*/
 
 </style>

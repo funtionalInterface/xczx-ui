@@ -98,7 +98,6 @@
       // 页面查询
       query: function () {
         this.getSiteList();
-        // alert('查询')
         // 调用服务端的接口
         cmsApi.page_list(this.params.page, this.params.size, this.params).then((res) => {
           // 将res结果数据赋值给数据模型对象
@@ -109,7 +108,6 @@
       },
       changePage: function (page) { // 形参就是当前页码
         // 调用query方法
-        // alert(page)
         this.params.page = page;
         this.query()
       },

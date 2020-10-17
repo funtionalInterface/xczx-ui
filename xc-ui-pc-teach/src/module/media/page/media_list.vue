@@ -37,8 +37,11 @@
       </el-table-column>
       <el-table-column prop="uploadTime" align="center" label="创建时间" width="110" :formatter="formatCreatetime">
       </el-table-column>
-      <el-table-column fixed="right" label="处理" align="center" width="150" v-if="ischoose !== true">
+      <el-table-column fixed="right" label="处理" align="center" width="220" v-if="ischoose !== true">
         <template slot-scope="scope">
+          <el-button
+            size="small" type="success" plain @click="player(scope.row.fileId,scope.row.processStatus)">播放
+          </el-button>
           <el-button
             size="small" type="primary" plain @click="process(scope.row.fileId,scope.row.processStatus)">处理
           </el-button>
@@ -177,6 +180,19 @@
           for (let i = 0; i < this.list.length; i++) {
             let size = this.list[i].fileSize;
             this.list[i].fileSize = (size / 1024 / 1024 * 1.0).toFixed(2) + " mb";
+          }
+        })
+      },
+      player(id,status){
+        if (status === "303001") {
+          this.$message.error('视频正在处理，不能播放！');
+          return;
+        }
+        this.$router.push({
+          path: '/video',
+          query: {
+            mediaId: id,
+            status : status
           }
         })
       }

@@ -9,6 +9,8 @@ import VueRouter from 'vue-router'
 import routes from './base/router'
 import store from './vuex/store'
 import Vuex from 'vuex'
+
+
 // 4.0 注册mint-ui
 // 导入mint-ui的css文件
 import 'mint-ui/lib/style.min.css';
@@ -19,8 +21,9 @@ import './statics/mui/css/mui.css';
 
 // 导入当前系统的全局基本样式
 import './statics/css/site.css';
+
 // 导入轮播图
-import { Swipe, SwipeItem } from 'mint-ui';
+import {Swipe, SwipeItem} from 'mint-ui';
 import utilApi from './common/utils';
 import * as systemApi from './base/api/system';
 // import Mock from './mock'
@@ -40,55 +43,56 @@ Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 //  将vue-resource在vue中绑定，自动在vue对象实例上注入一个$http对象就可以使用ajax方法了
 import vueResource from 'vue-resource';
+
 let sysConfig = require('@/../config/sysConfig')
 let openAuthenticate = sysConfig.openAuthenticate
 let openAuthorize = sysConfig.openAuthorize
 Vue.use(vueResource);
 /* eslint-disable no-new */
 const router = new VueRouter({
-  routes:routes
+  routes: routes
 })
 
 
 router.beforeEach((to, from, next) => {
-  if(openAuthenticate){
+  if (openAuthenticate) {
 
     // console.log(to)
     // console.log(from)
     //***********身份校验***************
     let activeUser
     let uid
-    try{
+    try {
       activeUser = utilApi.getActiveUser()
       uid = utilApi.getCookie("uid")
-    }catch(e){
+    } catch (e) {
       //alert(e)
     }
-    if(activeUser && uid && uid == activeUser.uid) {
+    if (activeUser && uid && uid == activeUser.uid) {
       next();
-    }else if(to.path =='/login' || to.path =='/logout'){
+    } else if (to.path == '/login' || to.path == '/logout') {
       next();
-    }else if(uid){
+    } else if (uid) {
 
       //请求获取jwt
-      systemApi.getjwt().then((res)=>{
-        if(res.success){
+      systemApi.getjwt().then((res) => {
+        if (res.success) {
           let jwt = res.jwt;
           let activeUser = utilApi.getUserInfoFromJwt(jwt)
-          if(activeUser){
-            utilApi.setUserSession("activeUser",JSON.stringify(activeUser))
+          if (activeUser) {
+            utilApi.setUserSession("activeUser", JSON.stringify(activeUser))
           }
           next();
-        }else{
+        } else {
           //跳转到统一登陆
-          window.location = "http://ucenter.xuecheng.com/#/login?returnUrl="+ Base64.encode(window.location)
+          window.location = "http://ucenter.xuecheng.com/#/login?returnUrl=" + Base64.encode(window.location)
         }
       })
-    }else{
+    } else {
       //跳转到统一登陆
-      window.location = "http://ucenter.xuecheng.com/#/login?returnUrl="+ Base64.encode(window.location)
+      window.location = "http://ucenter.xuecheng.com/#/login?returnUrl=" + Base64.encode(window.location)
     }
-  }else{
+  } else {
     next();
   }
 
@@ -116,14 +120,14 @@ router.beforeEach((to, from, next) => {
 // });
 
 import axios from 'axios'
-import { Message } from 'element-ui';
+import {Message} from 'element-ui';
 
 // 添加请求拦截器，实现http请求添加Authorization头信息
 axios.interceptors.request.use(function (config) {
   // 在发送请求向header添加jwt
   let jwt = utilApi.getJwt()
-  if(jwt){
-    config.headers['Authorization'] = 'Bearer '+jwt
+  if (jwt) {
+    config.headers['Authorization'] = 'Bearer ' + jwt
   }
   return config;
 }, function (error) {
@@ -214,3 +218,11 @@ new Vue({
   // components: { App }
   render: c => c(App)
 })
+
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+import 'videojs-flash'
+import 'videojs-contrib-hls/dist/videojs-contrib-hls'
+Vue.config.productionTip = false
+Vue.use(VueVideoPlayer)
