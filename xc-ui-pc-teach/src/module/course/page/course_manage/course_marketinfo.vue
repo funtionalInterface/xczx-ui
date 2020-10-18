@@ -4,7 +4,7 @@
       <el-form-item label="课程价格" prop="charge">
         <b v-for="charge in chargeList">
           <el-radio v-model="courseMarketForm.charge" :label="charge.sdId" style="margin-right: 10px">
-            {{charge.sdName}}
+            {{ charge.sdName }}
           </el-radio>
         </b>
         <br/>
@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item label="课程有效期" prop="expires">
         <b v-for="valid in validList">
-          <el-radio v-model="courseMarketForm.valid" :label="valid.sdId">{{valid.sdName}}</el-radio>&nbsp;&nbsp;
+          <el-radio v-model="courseMarketForm.valid" :label="valid.sdId">{{ valid.sdName }}</el-radio>&nbsp;&nbsp;
         </b>
         <br/>
         开始时间：
@@ -28,7 +28,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click.native="save">提交</el-button>
+      <el-button type="primary" @click.native="save" :loading="editLoading">提交</el-button>
     </div>
   </div>
 </template>
@@ -40,6 +40,7 @@
   export default {
     data() {
       return {
+        editLoading: false,
         active: 1,
         dotype: '',
         courseid: '',
@@ -74,6 +75,7 @@
         this.$refs.courseMarketForm.validate((valid) => {
           if (valid) {
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
+              this.editLoading = true;
               courseApi.updateCourseMarket(this.courseid, this.courseMarketForm).then((res) => {
                 this.editLoading = false;
                 if (res.success) {
@@ -85,6 +87,9 @@
                 } else {
                   this.$message.error('提交失败');
                 }
+              }).catch(() => {
+                this.$message.error('您没有权限操作该选项！');
+                this.editLoading = false;
               });
             });
           }

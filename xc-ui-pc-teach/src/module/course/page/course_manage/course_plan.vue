@@ -51,7 +51,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="switchFun">提交</el-button>
+          <el-button type="primary" v-on:click="switchFun" :loading="editLoading">提交</el-button>
           <el-button type="primary" v-on:click="resetForm">重置</el-button>
         </el-form-item>
 
@@ -77,6 +77,7 @@
     },
     data() {
       return {
+        editLoading: false,
         mediaFormVisible: false,
         teachplayFormVisible: false,//控制添加窗口是否显示
         teachplanList: [{
@@ -142,11 +143,13 @@
 
       },
       switchFun() {
+        this.editLoading = true;
         if (this.teachPlanName === "添加课程计划") {
           this.addTeachplan();
         } else if (this.teachPlanName === "修改课程计划") {
           this.edit();
         }
+
       },
       // 提交课程计划
       addTeachplan() {
@@ -163,10 +166,14 @@
                 this.resetForm()
                 // 刷新树
                 this.findTeachplan()
+                this.editLoading = false;
               } else {
                 this.$message.error(res.message)
+                this.editLoading = false;
               }
-
+            }).catch(()=>{
+              this.$message.error('您没有权限操作该选项！');
+              this.editLoading = false;
             })
           }
         })
@@ -187,9 +194,14 @@
             // 刷新树
             this.findTeachplan();
             this.teachplayFormVisible = false
+            this.editLoading = false;
           } else {
             this.$message.error("修改失败！");
+            this.editLoading = false;
           }
+        }).catch(() => {
+          this.$message.error('您没有权限操作该选项！');
+          this.editLoading = false;
         })
       },
       // 重置表单
@@ -219,6 +231,8 @@
               //失败
               reject();
             }
+          }).catch(() => {
+            this.$message.error('您没有权限操作该选项！');
           })
         })
       },
@@ -247,7 +261,6 @@
         courseApi.findTeachplanList(this.courseid).then(res => {
           if (res && res.children) {
             this.teachplanList = res.children;
-            console.log(this.teachplanList)
           }
         })
       }

@@ -18,12 +18,12 @@
       </el-form-item>
       <el-form-item label="课程等级" prop="grade">
         <b v-for="grade in gradeList">
-          <el-radio v-model="courseForm.grade" :label="grade.sdId">{{grade.sdName}}</el-radio>&nbsp;&nbsp;
+          <el-radio v-model="courseForm.grade" :label="grade.sdId">{{ grade.sdName }}</el-radio>&nbsp;&nbsp;
         </b>
       </el-form-item>
       <el-form-item label="学习模式" prop="studymodel">
         <b v-for="studymodel_v in studymodelList">
-          <el-radio v-model="courseForm.studymodel" :label="studymodel_v.sdId">{{studymodel_v.sdName}}</el-radio>&nbsp;&nbsp;
+          <el-radio v-model="courseForm.studymodel" :label="studymodel_v.sdId">{{ studymodel_v.sdName }}</el-radio>&nbsp;&nbsp;
         </b>
       </el-form-item>
       <el-form-item label="课程介绍" prop="description">
@@ -33,10 +33,11 @@
 
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click.native="save" :loading="editLoading">提交</el-button>
-      <el-button type="primary"  @click.native="go_back" >返回</el-button>
+      <el-button type="primary" @click.native="go_back">返回</el-button>
     </div>
   </div>
 </template>
+
 <script>
   import * as courseApi from '../../api/course';
   import utilApi from '../../../../common/utils';
@@ -45,8 +46,9 @@
   export default {
 
     data() {
-      return {
 
+      return {
+        routerStatus: '',
         dotype: '',
         courseid: '',
         studymodelList: [],
@@ -87,10 +89,13 @@
       }
     },
     methods: {
-      handleChange(){
+
+      handleChange() {
         console.log(this.categoryActive)
       },
-      save() {
+
+      save: function () {
+
         //修改课程
         this.$refs.courseForm.validate((valid) => {
           if (valid) {
@@ -115,18 +120,21 @@
                     this.$message.error('提交失败');
                   }
                 }
+              }).catch(error => {
+                  this.$message.error('您没有权限操作该选项！');
+                  this.editLoading = false;
               });
             });
           }
         });
       },
-      go_back(){
+      go_back() {
         this.$router.push({
-          path:'/course/list',
-          query:{
-            page:this.$route.query.page, // 取出路由中的参数
+          path: '/course/list',
+          query: {
+            page: this.$route.query.page, // 取出路由中的参数
             courseName: this.$route.query.courseName,
-            companyId:this.$route.query.companyId
+            companyId: this.$route.query.companyId
           }
         })
       }
@@ -160,6 +168,7 @@
     }
   }
 </script>
+
 <style scoped>
 
 

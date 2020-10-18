@@ -6,7 +6,7 @@ let apiUrl = sysConfig.xcApiUrlPre;
 
 // 查询课程列表
 // 我的课程列表
-export const findCourseList = (page, size, params) => {
+export const findCourseListAll = (page, size, params) => {
 // 使用工具类将json对象转成key/value
   let queries = querystring.stringify(params)
   return http.requestQuickGet(apiUrl + "/course/coursebase/list/" + page + "/" + size + "?" + queries)
@@ -88,3 +88,10 @@ export const findCourseView = courseId => {
 export const savemedia = teachplanMedia => {
   return http.requestPost(apiUrl + '/course/savemedia', teachplanMedia);
 }
+// 我的课程列表
+export const findCourseList = (page, size, params) => {
+  // 使用工具类将json对象转成key/value
+  let queries = querystring.stringify(params)
+  return http.requestQuickGet(apiUrl + "/course/coursebase/company/list/" + page + "/" + size + "?" + queries)
+}
+

@@ -23,7 +23,7 @@
           <div class="text item">
             <div v-if="course.status === '202001'">
               状态：制作中
-              <el-button type="primary" @click.native="publish">新课程发布</el-button>
+              <el-button type="primary" @click.native="publish" :loading="editLoading">新课程发布</el-button>
             </div>
             <div v-else-if="course.status === '202003'">
               状态：已下线
@@ -34,7 +34,7 @@
             </div>
             <div v-else-if="course.status === '202002'">
               状态：已发布<br/><br/>
-              <el-button type="primary" @click.native="publish">修改发布</el-button>
+              <el-button type="primary" @click.native="publish" :loading="editLoading">修改发布</el-button>
               <a :href="'http://www.xuecheng.com/course/detail/'+this.courseid+'.html'"
                  target="_blank"><br/><br/>
                 <el-button type="success">点我查看课程详情页面</el-button>
@@ -56,6 +56,7 @@
 
     data() {
       return {
+        editLoading: false,
         dotype: '',
         courseid: '',
         course: {"id": "", "name": "", "status": ""},
@@ -79,16 +80,22 @@
         });
       },
       publish() {
+        this.editLoading = true;
         // 课程发布
         courseApi.publish(this.courseid).then(res => {
           if (res.success) {
             this.$message.success("发布成功，请点击下边的链接查询课程详情页面")
             this.getCourseView()
+            this.editLoading = false;
           } else {
             this.$message.error(res.message)
+            this.editLoading = false;
           }
-
+        }).catch(()=>{
+          this.$message.error('您没有权限操作该选项！');
+          this.editLoading = false;
         })
+
       },
       getCoursePreUrl() {
         courseApi.previewUrl().then(res => {

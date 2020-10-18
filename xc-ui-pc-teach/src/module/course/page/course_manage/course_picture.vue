@@ -57,6 +57,8 @@
               // 失败
               reject();
             }
+          }).catch(error => {
+            this.$message.error('您没有权限操作该选项！');
           })
         })
       },
