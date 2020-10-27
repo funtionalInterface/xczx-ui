@@ -48,8 +48,8 @@
                     <a href="javascript:" @click="logout" v-if="logined === true">退出</a>
                     <a href="http://ucenter.xuecheng.com/" class="personal" target="_blank">我的学习</a>
                     <a href="javascript:" @click="showlogin" v-if="logined === false">登陆&nbsp;|&nbsp;注册</a>
-                    <a href="http://teacher.xuecheng.com/" class="personal" target="_blank">教学提供方</a>
-                    <a href="http://system.xuecheng.com/" class="personal" target="_blank">系统后台</a>
+                    <a href="" @click="teachLogin" class="personal" target="_blank">教学提供方</a>
+                    <a href="" @click="systemLogin" class="personal" target="_blank">系统后台</a>
                     <!--<a href="#" class="myInfo"><img src="img/asset-myImg.jpg" alt="">个人中心</a>-->
                 </div>
                 <!--<div class="starch">
@@ -89,6 +89,11 @@
             logined:false
         },
         methods: {
+            systemLogin(){
+                window.location = 'http://system.xuecheng.com/'
+            }, teachLogin(){
+                window.location = 'http://teacher.xuecheng.com/'
+            },
             search() {
                 if (this.keyword === '') {
                     window.location = "/course/search"

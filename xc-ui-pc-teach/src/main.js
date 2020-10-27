@@ -23,7 +23,7 @@ import './statics/mui/css/mui.css';
 import './statics/css/site.css';
 
 // 导入轮播图
-import {Swipe, SwipeItem} from 'mint-ui';
+import { Swipe, SwipeItem } from 'mint-ui';
 import utilApi from './common/utils';
 import * as systemApi from './base/api/system';
 // import Mock from './mock'
@@ -91,12 +91,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 import axios from 'axios'
-import {Message} from 'element-ui';
+import { Message } from 'element-ui';
 
 
 // 添加请求拦截器，实现http请求添加Authorization头信息
 axios.interceptors.request.use(function (config) {
-  // 在发送请求向header添加jwt
+  // 在发送请求时向header添加jwt
   let jwt = utilApi.getJwt()
   if (jwt) {
     config.headers['Authorization'] = 'Bearer ' + jwt
@@ -109,7 +109,6 @@ axios.interceptors.request.use(function (config) {
 
 // 响应拦截
 axios.interceptors.response.use(data => {
-  console.log("data=", data)
   if (data && data.data) {
     if (data.data.code && data.data.code === 10001) {
       //需要登录

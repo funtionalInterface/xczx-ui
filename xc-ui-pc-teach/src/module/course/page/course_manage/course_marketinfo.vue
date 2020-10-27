@@ -28,19 +28,19 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click.native="save" :loading="editLoading">提交</el-button>
+      <el-button type="primary" @click.native="save">提交</el-button>
     </div>
   </div>
 </template>
 <script>
-  import * as courseApi from '../../api/course';
-  import utilApi from '../../../../common/utils';
-  import * as systemApi from '../../../../base/api/system';
+  import * as courseApi from '../../api/course'
+  // eslint-disable-next-line no-unused-vars
+  import utilApi from '../../../../common/utils'
+  import * as systemApi from '../../../../base/api/system'
 
   export default {
-    data() {
+    data () {
       return {
-        editLoading: false,
         active: 1,
         dotype: '',
         courseid: '',
@@ -75,46 +75,43 @@
         this.$refs.courseMarketForm.validate((valid) => {
           if (valid) {
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
-              this.editLoading = true;
               courseApi.updateCourseMarket(this.courseid, this.courseMarketForm).then((res) => {
-                this.editLoading = false;
                 if (res.success) {
-                  this.$message.success('提交成功');
+                  this.$message.success('提交成功')
                   if (this.dotype === '1') {
                     // 跳转到课程图片
                     this.$router.push({path: '/course/add/plan/3/1/' + this.courseid})
                   }
                 } else {
-                  this.$message.error('提交失败');
+                  this.$message.error('提交失败')
                 }
               }).catch(() => {
-                this.$message.error('您没有权限操作该选项！');
-                this.editLoading = false;
-              });
-            });
+                this.$message.error('您没有权限操作该选项！')
+              })
+            })
           }
-        });
+        })
       }
     },
-    mounted() {
+    mounted () {
       // 操作类型
-      this.dotype = this.$route.params.dotype;
+      this.dotype = this.$route.params.dotype
       // 课程id
-      this.courseid = this.$route.params.courseid;
-      this.courseMarketForm.id = this.courseid;
+      this.courseid = this.$route.params.courseid
+      this.courseMarketForm.id = this.courseid
       // 查询字典
       systemApi.sys_getDictionary('203').then((res) => {
-        this.chargeList = res.dvalue;
-      });
+        this.chargeList = res.dvalue
+      })
       systemApi.sys_getDictionary('204').then((res) => {
-        this.validList = res.dvalue;
-      });
+        this.validList = res.dvalue
+      })
       // 获取课程营销信息
       courseApi.getCourseMarketById(this.courseid).then((res) => {
         if (res && res.id) {
-          this.courseMarketForm = res;
+          this.courseMarketForm = res
         }
-      });
+      })
     }
   }
 </script>

@@ -64,13 +64,13 @@
 </template>
 
 <script>
-  import PHead from '@/base/components/head.vue';
-  import utilApi from '../../../common/utils';
-  export default {
-    components:{
+  import PHead from '@/base/components/head.vue'
+import utilApi from '../../../common/utils'
+export default {
+    components: {
       PHead
     },
-    data() {
+    data () {
       return {
         sysName: '学成网系统管理中心',
         collapsed: false,
@@ -89,53 +89,51 @@
       }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
+      onSubmit () {
+        console.log('submit!')
       },
-      handleopen() {
-        //console.log('handleopen');
+      handleopen () {
+        // console.log('handleopen');
       },
-      handleclose() {
-        //console.log('handleclose');
+      handleclose () {
+        // console.log('handleclose');
       },
       handleselect: function (a, b) {
       },
-      //退出登录
+      // 退出登录
       logout: function () {
-        var _this = this;
+        var _this = this
         this.$confirm('确认退出吗?', '提示', {
-          //type: 'warning'
+          // type: 'warning'
         }).then(() => {
-          sessionStorage.removeItem('user');
-          _this.$router.push('/login');
+          sessionStorage.removeItem('user')
+          _this.$router.push('/login')
         }).catch(() => {
 
-        });
-
-
+        })
       },
-      //折叠导航栏
+      // 折叠导航栏
       collapse: function () {
-        this.collapsed = !this.collapsed;
+        this.collapsed = !this.collapsed
       },
-      showMenu(i, status){
-        this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-' + i)[0].style.display = status ? 'block' : 'none';
+      showMenu (i, status) {
+        this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-' + i)[0].style.display = status ? 'block' : 'none'
       }
 
     },
-    created() {
-      //没有权限的菜单不显示
-      let activeUser = utilApi.getActiveUser();
-      if(activeUser){
-        let authorities = activeUser.authorities;
-        if(authorities){
-          //console.log(authorities)
-          let routes = this.$router.options.routes;
+    created: function () {
+      // 没有权限的菜单不显示
+      let activeUser = utilApi.getActiveUser()
+      if (activeUser) {
+        let authorities = activeUser.authorities
+        if (authorities) {
+          // console.log(authorities)
+          let routes = this.$router.options.routes
           routes.forEach(function (routeValue) {
-            utilApi.checkmenu(routeValue,authorities)
-            if(routeValue.children){
+            utilApi.checkmenu(routeValue, authorities)
+            if (routeValue.children) {
               routeValue.children.forEach(function (routeValue) {
-                utilApi.checkmenu(routeValue,authorities)
+                utilApi.checkmenu(routeValue, authorities)
               })
             }
 
@@ -149,18 +147,12 @@
              //将菜单 隐藏
              routeValue.hidden = true
              }
-             }*/
-
-
-
-          });
+             } */
+          })
         }
-
       }
-
     }
   }
-
 </script>
 
 <style scoped lang="scss">

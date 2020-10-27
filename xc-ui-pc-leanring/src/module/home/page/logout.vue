@@ -32,6 +32,9 @@
     },
     methods: {},
     created() {
+    },
+    mounted() {
+
       loginApi.logout({}).then((res) => {
           if (res.success) {
             sessionStorage.removeItem('activeUser');
@@ -50,9 +53,6 @@
         (res) => {
           this.logoutsuccess = false
         });
-    },
-    mounted() {
-
     }
   }
 </script>

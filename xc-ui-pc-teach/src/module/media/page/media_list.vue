@@ -75,11 +75,11 @@
 </template>
 <script>
   import * as mediaApi from '../api/media'
-  import utilApi from '@/common/utils';
+  import utilApi from '@/common/utils'
 
   export default {
     props: ['ischoose'],
-    data() {
+    data () {
       return {
         params: {
           page: 1,//页码
@@ -95,113 +95,116 @@
       }
     },
     methods: {
-      formatCreatetime(row, column) {
-        var createTime = new Date(row.uploadTime);
+      formatCreatetime (row, column) {
+        var createTime = new Date(row.uploadTime)
         if (createTime) {
-          return utilApi.formatDate(createTime, 'yyyy-MM-dd hh:mm:ss');
+          return utilApi.formatDate(createTime, 'yyyy-MM-dd hh:mm:ss')
         }
       },
-      formatProcessStatus(row, column) {
-        var processStatus = row.processStatus;
+      formatProcessStatus (row, column) {
+        var processStatus = row.processStatus
         if (processStatus) {
           if (processStatus === '303001') {
-            return "处理中";
+            return '处理中'
           } else if (processStatus === '303002') {
-            return "处理成功";
+            return '处理成功'
           } else if (processStatus === '303003') {
-            return "处理失败";
+            return '处理失败'
           } else if (processStatus === '303004') {
-            return "无需处理";
+            return '无需处理'
           }
         }
       },
-      choose(mediaFile) {
+      choose (mediaFile) {
         if (mediaFile.processStatus !== '303002' && mediaFile.processStatus !== '303004') {
-          this.$message.error('该文件未处理，不允许选择');
-          return;
+          this.$message.error('该文件未处理，不允许选择')
+          return
         }
         if (!mediaFile.fileUrl) {
-          this.$message.error('该文件的访问url为空，不允许选择');
-          return;
+          this.$message.error('该文件的访问url为空，不允许选择')
+          return
         }
         //调用父组件的choosemedia方法
-        this.$emit('choosemedia', mediaFile.fileId, mediaFile.fileOriginalName, mediaFile.fileUrl);
+        this.$emit('choosemedia', mediaFile.fileId, mediaFile.fileOriginalName, mediaFile.fileUrl)
       },
-      changePage(page) {
-        this.params.page = page;
+      changePage (page) {
+        this.params.page = page
         this.query()
       },
-      process(id, status) {
-        if (status === "303001") {
-          this.$message.error('视频正在处理！');
-          return;
+      process (id, status) {
+        if (status === '303001') {
+          this.$message.error('视频正在处理！')
+          return
         }
-        if (status === "303002") {
-          this.$message.error('视频已处理完成，无需重复处理！');
-          return;
+        if (status === '303002') {
+          this.$message.error('视频已处理完成，无需重复处理！')
+          return
         }
         this.$confirm('您确认处理该文件吗?', '提示', {}).then(() => {
           // 调用服务端接口
           mediaApi.media_process(id).then((res) => {
             if (res.success) {
-              this.$message.success('开始处理，请稍后查看处理结果');
+              this.$message.success('开始处理，请稍后查看处理结果')
             } else {
-              this.$message.error(res.message);
+              this.$message.error(res.message)
             }
+          }).catch(() => {
+            this.$message.error('您没有权限操作该选项！')
           })
         })
 
       },
-      delete_media(id) {
-        if (status === "303001") {
-          this.$message.error('视频正在处理，不可删除！');
-          return;
+      delete_media (id) {
+        if (status === '303001') {
+          this.$message.error('视频正在处理，不可删除！')
+          return
         }
         this.$confirm('您确认删除该文件吗?', '提示', {}).then(() => {
 
           // 调用服务端接口
           mediaApi.delete_media(id).then((res) => {
             if (res.success) {
-              this.$message.success('删除媒资文件成功！');
+              this.$message.success('删除媒资文件成功！')
               // 刷新列表
               this.query()
             } else {
-              this.$message.error(res.message);
+              this.$message.error(res.message)
             }
+          }).catch(() => {
+            this.$message.error('您没有权限操作该选项！')
           })
         })
 
-
       },
-      query() {
+      query () {
         mediaApi.media_list(this.params.page, this.params.size, this.params).then((res) => {
           this.total = res.queryResult.total
           this.list = res.queryResult.list
           for (let i = 0; i < this.list.length; i++) {
-            let size = this.list[i].fileSize;
-            this.list[i].fileSize = (size / 1024 / 1024 * 1.0).toFixed(2) + " mb";
+            let size = this.list[i].fileSize
+            this.list[i].fileSize = (size / 1024 / 1024 * 1.0).toFixed(2) + ' mb'
           }
         })
       },
-      player(id,status){
-        if (status === "303001") {
-          this.$message.error('视频正在处理，不能播放！');
-          return;
+      player (id, status) {
+        if (status === '303001') {
+          this.$message.error('视频正在处理，不能播放！')
+          return
         }
         this.$router.push({
           path: '/video',
           query: {
             mediaId: id,
-            status : status
+            status: status
           }
         })
       }
     },
-    created() {
+    created () {
       //默认第一页
-      this.params.page = Number.parseInt(this.$route.query.page || 1);
+      this.params.page = Number.parseInt(this.$route.query.page || 1)
     },
-    mounted() {
+    mounted () {
       //默认查询页面
       this.query()
       //初始化处理状态
